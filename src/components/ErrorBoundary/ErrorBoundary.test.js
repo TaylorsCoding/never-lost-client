@@ -15,4 +15,3 @@ it("renders without crashing", () => {
   );
   ReactDOM.unmountComponentAtNode(div);
 });
-꼀;

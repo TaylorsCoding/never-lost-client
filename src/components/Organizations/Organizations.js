@@ -12,7 +12,7 @@ export default class Organizations extends Component {
   render() {
     const organizations = this.context.localOrganizations;
     return (
-      <div className="main-content">
+      <div className="org-content">
         <ErrorBoundary>
           <h1>Organizations</h1>
           <NavLink to="/create-organization" className="add-button">

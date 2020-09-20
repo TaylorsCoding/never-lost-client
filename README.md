@@ -1,68 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Never Lost
 
-## Available Scripts
+https://never-lost.vercel.app
 
-In the project directory, you can run:
+Response Codes:
+200: Success
+400: Bad request
+401: Unauthorized
+404: Cannot be found
+500: Server Error
 
-### `npm start`
+Animals
+GET /animals - Server sends back all animals
+POST /animals - Server creates a new animal in the database
+GET /animals/:id - Server gets animal with id=:id
+PUT /animals/:id - Server updates animal with id=:id
+DELETE /animals/:id - Server deletes animal with id=:id
+GET /animals/zip/:zip_code - Server gets animals with zip_code=:zip_code and animals with zipcode=:zip_code +- 501 (eg. zip_code 20000 will return all animals with zip codes 19500-20500)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Organizations
+GET /organizations - Server sends back all organizations
+POST /organizations - Server creates a new organization in the database
+GET /organizations/:id - Server gets organization with id=:id
+PUT /organizations/:id - Server updates organization with id=:id
+DELETE /organizations/:id - Server deletes organization with id=:id
+GET /organizations/zip/:zip_code - Server gets organizations with zip_code=:zip_code and organizations with zipcode=:zip_code +- 501 (eg. zip_code 20000 will return all organizations with zip codes 19500-20500)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Events
+GET /events - Server sends back all events
+POST /events - Server creates a new event in the database
+GET /events/:id - Server gets event with id=:id
+PUT /events/:id - Server updates event with id=:id
+DELETE /events/:id - Server deletes event with id=:id
+GET /events/zip/:zip_code - Server gets events with zip_code=:zip_code and events with zipcode=:zip_code +- 501 (eg. zip_code 20000 will return all events with zip codes 19500-20500)
 
-### `npm test`
+Topics
+GET /topics - Server sends back all topics
+POST /topics - Server creates a new topic in the database
+GET /topics/:id - Server gets topic with id=:id
+PUT /topics/:id - Server updates topic with id=:id
+DELETE /topics/:id - Server deletes topic with id=:id
+GET /topics/zip/:zip_code - Server gets topics with zip_code=:zip_code and topics with zipcode=:zip_code +- 501 (eg. zip_code 20000 will return all topics with zip codes 19500-20500)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Posts
+GET /posts - Server sends back all posts
+POST /posts - Server creates a new post in the database
+GET /posts/:id - Server gets post with id=:id
+PUT /posts/:id - Server updates post with id=:id
+DELETE /posts/:id - Server deletes post with id=:id
+GET /posts/zip/:zip_code - Server gets posts with zip_code=:zip_code and posts with zipcode=:zip_code +- 501 (eg. zip_code 20000 will return all posts with zip codes 19500-20500)
 
-### `npm run build`
+Summary
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This app allows for pet and animal lovers to get together and talk about events. A user can add animals, pet organizations, events, and topics to the page. A user can then make comments on events and topics on the page. This facilitates the creation of a community in whatever area someone is in, as well as helping people find lost pets.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Technology
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Client Side:
 
-### `npm run eject`
+The main technology used in the client side is React, with a focus on react-router-dom. Context and history is used to optimize the routing.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Server Side:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The technology used in the server side is Express.js, with a focus on Express.Router(). This facilitates the optimal routing used in this app. PostgreSQL is used to create and manage the database. Postgrator is used to make SQL migrations.

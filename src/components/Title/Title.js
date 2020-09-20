@@ -4,7 +4,7 @@ import "./Title.css";
 
 export default function Title(props) {
   return (
-    <div>
+    <div className="whole-title">
       <img
         className="first-image"
         src={require("./istockphoto-494663674-170667a.jpg")}
@@ -17,6 +17,7 @@ export default function Title(props) {
         className="second-image"
         src={require("./preview.jpg")}
         width="32%"
+        height="1%"
         alt="cats"
       />
     </div>

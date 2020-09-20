@@ -14,7 +14,7 @@ export default class Animals extends Component {
   render() {
     const animals = this.context.localAnimals;
     return (
-      <div className="main-content">
+      <div className="animal-content">
         <ErrorBoundary>
           <div className="animals-main">
             <h1>Animals</h1>

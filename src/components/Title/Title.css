@@ -24,7 +24,11 @@
   width: 32%;
 }
 
-@media screen and (max-width: 985px) {
+.whole-title {
+  margin-top: -10px;
+}
+
+@media screen and (max-width: 990px) {
   .title-itself {
     margin-left: -20px;
     font-family: "Permanent Marker", cursive;

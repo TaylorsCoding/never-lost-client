@@ -12,7 +12,7 @@ export default class Chat extends Component {
   render() {
     const { localTopics = [] } = this.context;
     return (
-      <div className="main-content">
+      <div className="chat-content">
         <ErrorBoundary>
           <h1>Chat</h1>
           <NavLink to="/create-topic" className="add-button">

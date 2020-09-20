@@ -308,7 +308,7 @@ class App extends Component {
         <Route exact path="/animals/:animal_id" component={AnimalPage} />
         <Route
           exact
-          path="/organizations/:organization_id"
+          path="/organizations/:org_id"
           component={OrganizationPage}
         />
       </>

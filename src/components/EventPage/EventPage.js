@@ -105,7 +105,7 @@ export default class EventPage extends Component {
               }
             >
               <div>
-                <label for="content">New Post</label>
+                <label htmlFor="content">New Post</label>
               </div>
               <div>
                 <textarea name="content" />

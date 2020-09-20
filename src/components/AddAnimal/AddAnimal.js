@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../index.css";
+import "./AddAnimal.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -17,6 +18,10 @@ export default class AddAnimal extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
+    if (e.target["in_shelter"].value === "...") {
+      e.target["in_shelter"].value = 0;
+    }
+
     const animal = {
       name: e.target["name"].value,
       species: e.target["species"].value,
@@ -26,8 +31,8 @@ export default class AddAnimal extends Component {
       gender: e.target["gender"].value,
       description: e.target["description"].value,
       zip_code: e.target["zip_code"].value,
-      in_distress: e.target["in_distress"].checked,
-      in_shelter: e.target["in_shelter"].value,
+      is_lost: e.target["is_lost"].checked,
+      in_shelter: parseInt(e.target["in_shelter"].value),
     };
 
     fetch(`${config.API_ENDPOINT}/animals`, {
@@ -56,7 +61,7 @@ export default class AddAnimal extends Component {
     const { localOrganizations = [] } = this.context;
     return (
       <ErrorBoundary>
-        <div className="main-content">
+        <div className="animal-content">
           <h1>Add an Animal!</h1>
           <form onSubmit={this.handleSubmit} action="#">
             <fieldset>
@@ -130,16 +135,17 @@ export default class AddAnimal extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="in_distress">Is this animal lost?</label>
+                <label htmlFor="is_lost">Is this animal lost?</label>
               </div>
               <div>
-                <input type="checkbox" name="in_distress" />
+                <input type="checkbox" name="is_lost" />
               </div>
             </fieldset>
             <fieldset>
               <div>
                 <label htmlFor="in_shelter">Is this animal in a shelter?</label>
               </div>
+              <div>If it is, choose a shelter below.</div>
               <select name="in_shelter">
                 <option>...</option>
                 {localOrganizations.map((organization) => (

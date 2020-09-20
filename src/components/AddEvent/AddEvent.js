@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./AddEvent.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -55,76 +56,78 @@ export default class AddEvent extends Component {
   render() {
     const { localOrganizations = [], localAnimals = [] } = this.context;
     return (
-      <ErrorBoundary>
-        <h1>Create an Event</h1>
-        <form onSubmit={this.handleSubmit} action="#">
-          <fieldset>
-            <div>
-              <label htmlFor="title">Title</label>
-            </div>
-            <div>
-              <input type="text" name="title" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="zip_code">Zip Code</label>
-            </div>
-            <div>
-              <input type="text" name="zip_code" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="type">Type</label>
-            </div>
-            <div>
-              <input type="text" name="type" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="description">Description</label>
-            </div>
-            <div>
-              <input type="text" name="description" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="associatedAnimal">Associated Animal</label>
-            </div>
-            <div>
-              <select name="associatedAnimal">
-                <option>...</option>
-                {localAnimals.map((animal) => (
-                  <option key={animal.id} value={animal.id}>
-                    {animal.name} - {animal.zip_code}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="associatedOrganization">
-                Associated Organization
-              </label>
-            </div>
-            <div>
-              <select name="associatedOrganization">
-                <option>...</option>
-                {localOrganizations.map((organization) => (
-                  <option key={organization.id} value={organization.id}>
-                    {organization.name} - {organization.zip_code}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
-      </ErrorBoundary>
+      <div className="event-content">
+        <ErrorBoundary>
+          <h1>Create an Event</h1>
+          <form onSubmit={this.handleSubmit} action="#">
+            <fieldset>
+              <div>
+                <label htmlFor="title">Title</label>
+              </div>
+              <div>
+                <input type="text" name="title" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="zip_code">Zip Code</label>
+              </div>
+              <div>
+                <input type="text" name="zip_code" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="type">Type</label>
+              </div>
+              <div>
+                <input type="text" name="type" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="description">Description</label>
+              </div>
+              <div>
+                <input type="text" name="description" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="associatedAnimal">Associated Animal</label>
+              </div>
+              <div>
+                <select name="associatedAnimal">
+                  <option>...</option>
+                  {localAnimals.map((animal) => (
+                    <option key={animal.id} value={animal.id}>
+                      {animal.name} - {animal.zip_code}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="associatedOrganization">
+                  Associated Organization
+                </label>
+              </div>
+              <div>
+                <select name="associatedOrganization">
+                  <option>...</option>
+                  {localOrganizations.map((organization) => (
+                    <option key={organization.id} value={organization.id}>
+                      {organization.name} - {organization.zip_code}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </fieldset>
+            <button type="submit">Submit</button>
+          </form>
+        </ErrorBoundary>
+      </div>
     );
   }
 }

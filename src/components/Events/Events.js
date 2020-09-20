@@ -12,7 +12,7 @@ export default class Events extends Component {
   render() {
     const events = this.context.localEvents;
     return (
-      <div className="main-content">
+      <div className="event-content">
         <ErrorBoundary>
           <h1>Events</h1>
           <NavLink to="/create-event" className="add-button">

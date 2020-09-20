@@ -65,7 +65,13 @@ export default class TopicPage extends Component {
       <ErrorBoundary>
         <div>
           <h1>Topic: {topic ? topic.title : null}</h1>
-          <p>{topic ? `Part of the ${topic.event_id} event.` : null}</p>
+          <p>
+            {topic
+              ? event
+                ? `Part of the ${event.title} event.`
+                : null
+              : null}
+          </p>
         </div>
         <div>
           <h2>Posts</h2>

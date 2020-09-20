@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./AddOrganization.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -50,68 +51,70 @@ export default class AddOrganization extends Component {
 
   render() {
     return (
-      <ErrorBoundary>
-        <h1>Add an Organization</h1>
-        <form onSubmit={this.handleSubmit} action="#">
-          <fieldset>
-            <div>
-              <label htmlFor="name">Name</label>
-            </div>
-            <div>
-              <input type="text" name="name" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="zip_code">Zip Code</label>
-            </div>
-            <div>
-              <input type="text" name="zip_code" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="description">Description</label>
-            </div>
-            <div>
-              <textarea type="text" name="description" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="type">Type</label>
-            </div>
-            <div>
-              <input type="text" name="type" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="address">Address</label>
-            </div>
-            <div>
-              <input type="text" name="address" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="website">Website</label>
-            </div>
-            <div>
-              <input type="text" name="website" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="phone_number">Phone Number</label>
-            </div>
-            <div>
-              <input type="tel" name="phone_number" />
-            </div>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
-      </ErrorBoundary>
+      <div className="org-content">
+        <ErrorBoundary>
+          <h1>Add an Organization</h1>
+          <form onSubmit={this.handleSubmit} action="#">
+            <fieldset>
+              <div>
+                <label htmlFor="name">Name</label>
+              </div>
+              <div>
+                <input type="text" name="name" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="zip_code">Zip Code</label>
+              </div>
+              <div>
+                <input type="text" name="zip_code" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="description">Description</label>
+              </div>
+              <div>
+                <textarea type="text" name="description" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="type">Type</label>
+              </div>
+              <div>
+                <input type="text" name="type" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="address">Address</label>
+              </div>
+              <div>
+                <input type="text" name="address" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="website">Website</label>
+              </div>
+              <div>
+                <input type="text" name="website" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="phone_number">Phone Number</label>
+              </div>
+              <div>
+                <input type="tel" name="phone_number" />
+              </div>
+            </fieldset>
+            <button type="submit">Submit</button>
+          </form>
+        </ErrorBoundary>
+      </div>
     );
   }
 }
