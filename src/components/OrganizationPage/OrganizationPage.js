@@ -17,7 +17,7 @@ export default class OrganizationPage extends Component {
     const org = localOrganizations.find((org) => org.id === parseInt(org_id));
     return (
       <ErrorBoundary>
-        <div className="main-content">
+        <div className="org-content">
           <h1>{org ? org.name : null}</h1>
           <h3>Description</h3>
           <p>
