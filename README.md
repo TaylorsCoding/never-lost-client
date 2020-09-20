@@ -53,6 +53,14 @@ Summary
 
 This app allows for pet and animal lovers to get together and talk about events. A user can add animals, pet organizations, events, and topics to the page. A user can then make comments on events and topics on the page. This facilitates the creation of a community in whatever area someone is in, as well as helping people find lost pets.
 
+![Screenshot #1](/screenshots/screenshot1.png)
+
+![Screenshot #2](/screenshots/screenshot2.png)
+
+![Screenshot #3](/screenshots/screenshot3.png)
+
+![Screenshot #4](/screenshots/screenshot4.png)
+
 Technology
 
 Client Side:
