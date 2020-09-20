@@ -1,0 +1,98 @@
+import React, { Component } from "react";
+
+import Post from "../Post/Post";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+
+import ApiContext from "../../APIcontext";
+import config from "../../config";
+
+export default class TopicPage extends Component {
+  static defaultProps = {
+    history: {
+      goBack: () => {},
+    },
+    match: {
+      params: {},
+    },
+  };
+  static contextType = ApiContext;
+
+  handleSubmit(e, topic_id) {
+    e.preventDefault();
+
+    const post = {
+      content: e.target["content"].value,
+      topic_id: parseInt(topic_id),
+    };
+
+    fetch(`${config.API_ENDPOINT}/posts`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(post),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((e) => Promise.reject(e));
+        }
+        return response.json();
+      })
+      .then((post) => {
+        this.context.addPost(post);
+        this.props.history.push(`/topic/${topic_id}`);
+      })
+      .catch((error) => {
+        console.error({ error });
+      });
+  }
+
+  render() {
+    const {
+      localTopics = [],
+      localPosts = [],
+      globalEvents = [],
+    } = this.context;
+    const { topic_id } = this.props.match.params;
+    const topic = localTopics.find((topic) => topic.id === parseInt(topic_id));
+    const posts = localPosts.filter(
+      (post) => post.topic_id === parseInt(topic_id)
+    );
+    const event = globalEvents.find(
+      (event) => parseInt(event.id) === topic.event_id
+    );
+    return (
+      <ErrorBoundary>
+        <div>
+          <h1>Topic: {topic ? topic.title : null}</h1>
+          <p>{topic ? `Part of the ${topic.event_id} event.` : null}</p>
+        </div>
+        <div>
+          <h2>Posts</h2>
+
+          <ol>
+            {posts.map((post) => (
+              <li>
+                <Post
+                  key={post.id}
+                  content={post.content}
+                  topic_id={post.topic_id}
+                  date_published={post.date_published}
+                />
+              </li>
+            ))}
+          </ol>
+          <h3>Create New Post</h3>
+          <form
+            onSubmit={(e) =>
+              this.handleSubmit(e, this.props.match.params.topic_id)
+            }
+          >
+            <input type="text" name="content" />
+            <input type="submit" />
+          </form>
+        </div>
+      </ErrorBoundary>
+    );
+  }
+}
