@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Chat.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -10,7 +11,7 @@ export default class Chat extends Component {
   static contextType = ApiContext;
 
   render() {
-    const { localTopics = [] } = this.context;
+    const { globalTopics = [] } = this.context;
     return (
       <div className="chat-content">
         <ErrorBoundary>
@@ -18,12 +19,11 @@ export default class Chat extends Component {
           <NavLink to="/create-topic" className="add-button">
             <button>Create a New Topic!</button>
           </NavLink>
-          {localTopics.length > 0
-            ? localTopics.map((topic) => (
+          {globalTopics.length > 0
+            ? globalTopics.map((topic) => (
                 <Topic
                   id={topic.id}
                   key={topic.id}
-                  className="topic"
                   title={topic.title}
                   zip_code={topic.zip_code}
                   event_id={topic.event_id}

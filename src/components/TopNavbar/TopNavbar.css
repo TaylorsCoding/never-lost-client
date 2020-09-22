@@ -1,15 +1,16 @@
 .safari-home {
-  display: inline-block;
+  display: block;
   color: white;
 }
 
 .safari-navbar {
   display: inline;
+  margin-left: -10%;
 }
 
 .safari-navbar li {
   display: inline;
-  padding-left: 10%;
+  margin-right: 5%;
 }
 
 .safari-header {
@@ -36,6 +37,24 @@
 
 .span-o {
   color: silver;
+}
+
+@media screen and (min-width: 414px) {
+  .safari-navbar {
+    margin-left: 10%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .safari-navbar li {
+    margin-right: 10%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .safari-navbar li {
+    margin-right: 20%;
+  }
 }
 
 /* :root {

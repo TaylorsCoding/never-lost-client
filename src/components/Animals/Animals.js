@@ -12,7 +12,8 @@ export default class Animals extends Component {
   static contextType = ApiContext;
 
   render() {
-    const animals = this.context.localAnimals;
+    const { globalAnimals = [] } = this.context;
+
     return (
       <div className="animal-content">
         <ErrorBoundary>
@@ -21,7 +22,7 @@ export default class Animals extends Component {
             <NavLink to="/create-animal" className="add-button">
               <button>Add an Animal!</button>
             </NavLink>
-            {animals.map((animal) => (
+            {globalAnimals.map((animal) => (
               <Animal
                 id={animal.id}
                 key={animal.id}

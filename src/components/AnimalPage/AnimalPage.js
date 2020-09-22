@@ -14,9 +14,9 @@ export default class AnimalPage extends Component {
   };
   static contextType = ApiContext;
   render() {
-    const { localAnimals = [], globalOrganizations = [] } = this.context;
+    const { globalAnimals = [], globalOrganizations = [] } = this.context;
     const { animal_id } = this.props.match.params;
-    const animal = localAnimals.find(
+    const animal = globalAnimals.find(
       (animal) => animal.id === parseInt(animal_id)
     );
     const org = globalOrganizations.find(
@@ -29,7 +29,7 @@ export default class AnimalPage extends Component {
 
     return (
       <ErrorBoundary>
-        <div className="main-content">
+        <div className="animal-content">
           <h1>{animal ? animal.name : null}</h1>
           <p>
             Species:{" "}

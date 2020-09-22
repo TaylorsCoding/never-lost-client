@@ -12,7 +12,7 @@ export default function Organization(props) {
       <p>Description: {props.description}</p>
       <p>Address: {props.address}</p>
       <p>Website: {props.website}</p>
-      <p>Phone Number:{props.phone_number}</p>
+      <p>Phone Number: {props.phone_number}</p>
     </ErrorBoundary>
   );
 }

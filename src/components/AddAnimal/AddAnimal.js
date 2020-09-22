@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../index.css";
+import "./AddAnimal.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -96,10 +97,10 @@ export default class AddAnimal extends Component {
   };
 
   render() {
-    const { localOrganizations = [] } = this.context;
+    const { globalOrganizations = [] } = this.context;
     return (
       <ErrorBoundary>
-        <div className="main-content">
+        <div className="animal-content">
           <h1>Add an Animal!</h1>
           <form onSubmit={this.handleSubmit} action="#">
             <fieldset>
@@ -210,7 +211,7 @@ export default class AddAnimal extends Component {
               <div> If it is, choose from a shelter below. </div>
               <select name="in_shelter">
                 <option>...</option>
-                {localOrganizations.map((organization) => (
+                {globalOrganizations.map((organization) => (
                   <option key={organization.id} value={organization.id}>
                     {organization.name} - {organization.zip_code}
                   </option>

@@ -23,3 +23,7 @@ h2 {
 .posts {
   margin-left: 20px;
 }
+
+.event-content {
+  background-color: lightgreen;
+}

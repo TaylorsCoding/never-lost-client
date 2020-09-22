@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./OrganizationPage.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -12,9 +13,9 @@ export default class OrganizationPage extends Component {
   };
   static contextType = ApiContext;
   render() {
-    const { localOrganizations = [] } = this.context;
+    const { globalOrganizations = [] } = this.context;
     const { org_id } = this.props.match.params;
-    const org = localOrganizations.find((org) => org.id === parseInt(org_id));
+    const org = globalOrganizations.find((org) => org.id === parseInt(org_id));
     return (
       <ErrorBoundary>
         <div className="org-content">

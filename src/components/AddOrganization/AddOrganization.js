@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./AddOrganization.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -80,79 +81,82 @@ export default class AddOrganization extends Component {
 
   render() {
     return (
-      <ErrorBoundary>
-        <h1>Add an Organization</h1>
-        <form onSubmit={this.handleSubmit} action="#">
-          <fieldset>
-            <div>
-              <label htmlFor="name">
-                Name{this.state.nameVer ? null : ": You must add a name."}
-              </label>
-            </div>
-            <div>
-              <input type="text" name="name" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="zip_code">
-                Zip Code{this.state.zcVer ? null : ": You must add a zip code."}
-              </label>
-            </div>
-            <div>
-              <input type="text" name="zip_code" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="description">
-                Description
-                {this.state.descVer ? null : ": You must add a description."}
-              </label>
-            </div>
-            <div>
-              <textarea type="text" name="description" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="type">
-                Type{this.state.typeVer ? null : ": You must add a type."}
-              </label>
-            </div>
-            <div>
-              <input type="text" name="type" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="address">Address - Enter if Known</label>
-            </div>
-            <div>
-              <input type="text" name="address" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="website">Website - Enter if Known</label>
-            </div>
-            <div>
-              <input type="text" name="website" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <div>
-              <label htmlFor="phone_number">
-                Phone Number - Enter if Known
-              </label>
-            </div>
-            <div>
-              <input type="tel" name="phone_number" />
-            </div>
-          </fieldset>
-          <button type="submit">Submit</button>
-        </form>
-      </ErrorBoundary>
+      <div className="org-content">
+        <ErrorBoundary>
+          <h1>Add an Organization</h1>
+          <form onSubmit={this.handleSubmit} action="#">
+            <fieldset>
+              <div>
+                <label htmlFor="name">
+                  Name{this.state.nameVer ? null : ": You must add a name."}
+                </label>
+              </div>
+              <div>
+                <input type="text" name="name" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="zip_code">
+                  Zip Code
+                  {this.state.zcVer ? null : ": You must add a zip code."}
+                </label>
+              </div>
+              <div>
+                <input type="text" name="zip_code" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="description">
+                  Description
+                  {this.state.descVer ? null : ": You must add a description."}
+                </label>
+              </div>
+              <div>
+                <textarea type="text" name="description" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="type">
+                  Type{this.state.typeVer ? null : ": You must add a type."}
+                </label>
+              </div>
+              <div>
+                <input type="text" name="type" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="address">Address - Enter if Known</label>
+              </div>
+              <div>
+                <input type="text" name="address" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="website">Website - Enter if Known</label>
+              </div>
+              <div>
+                <input type="text" name="website" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="phone_number">
+                  Phone Number - Enter if Known
+                </label>
+              </div>
+              <div>
+                <input type="tel" name="phone_number" />
+              </div>
+            </fieldset>
+            <button type="submit">Submit</button>
+          </form>
+        </ErrorBoundary>
+      </div>
     );
   }
 }

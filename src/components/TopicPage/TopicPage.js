@@ -57,61 +57,63 @@ export default class TopicPage extends Component {
 
   render() {
     const {
-      localTopics = [],
-      localPosts = [],
+      globalTopics = [],
+      globalPosts = [],
       globalEvents = [],
     } = this.context;
     const { topic_id } = this.props.match.params;
-    const topic = localTopics.find((topic) => topic.id === parseInt(topic_id));
-    const posts = localPosts.filter(
+    const topic = globalTopics.find((topic) => topic.id === parseInt(topic_id));
+    const posts = globalPosts.filter(
       (post) => post.topic_id === parseInt(topic_id)
     );
     const event = globalEvents.find(
       (event) => parseInt(event.id) === topic.event_id
     );
     return (
-      <ErrorBoundary>
-        <div>
-          <h1>Topic: {topic ? topic.title : null}</h1>
-          <p>
-            {topic
-              ? event
-                ? `Part of the ${event.title} event.`
-                : null
-              : null}
-          </p>
-        </div>
-        <div>
-          <h2>Posts</h2>
+      <div className="chat-content">
+        <ErrorBoundary>
+          <div>
+            <h1>Topic: {topic ? topic.title : null}</h1>
+            <p>
+              {topic
+                ? event
+                  ? `Part of the ${event.title} event.`
+                  : null
+                : null}
+            </p>
+          </div>
+          <div>
+            <h2>Posts</h2>
 
-          <ol>
-            {posts.map((post) => (
-              <li>
-                <Post
-                  key={post.id}
-                  content={post.content}
-                  topic_id={post.topic_id}
-                  date_published={post.date_published}
-                />
-              </li>
-            ))}
-          </ol>
-          <h3>Create New Post</h3>
-          <form
-            onSubmit={(e) =>
-              this.handleSubmit(e, this.props.match.params.topic_id)
-            }
-          >
-            <label>
-              {this.state.postVer
-                ? null
-                : "You must add some text to the post."}
-            </label>
-            <input type="text" name="content" />
-            <input type="submit" />
-          </form>
-        </div>
-      </ErrorBoundary>
+            <ol>
+              {posts.map((post) => (
+                <li>
+                  <Post
+                    key={post.id}
+                    content={post.content}
+                    topic_id={post.topic_id}
+                    date_published={post.date_published}
+                  />
+                </li>
+              ))}
+            </ol>
+            <h3>Create New Post</h3>
+            <form
+              onSubmit={(e) =>
+                this.handleSubmit(e, this.props.match.params.topic_id)
+              }
+            >
+              <label>
+                {this.state.postVer
+                  ? null
+                  : "You must add some text to the post."}
+              </label>
+              <input type="text" name="content" />
+              <input type="submit" />
+            </form>
+          </div>
+        </ErrorBoundary>
+      </div>
     );
   }
 }

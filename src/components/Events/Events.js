@@ -10,7 +10,7 @@ export default class Events extends Component {
   static contextType = ApiContext;
 
   render() {
-    const events = this.context.localEvents;
+    const { globalEvents = [] } = this.context;
     return (
       <div className="event-content">
         <ErrorBoundary>
@@ -19,7 +19,7 @@ export default class Events extends Component {
             <button>Create New Event</button>
           </NavLink>
           <ol>
-            {events.map((event) => (
+            {globalEvents.map((event) => (
               <li key={event.id}>
                 <EventComponent
                   id={event.id}

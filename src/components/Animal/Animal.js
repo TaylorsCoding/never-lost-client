@@ -16,6 +16,7 @@ export default function Animal(props) {
       <p>Description: {props.description}</p>
       <p>Zip Code:{props.zip_code}</p>
       <p>Is this animal lost? {props.is_lost}</p>
+      <p>Is this animal in a shelter? {props.in_shelter}</p>
     </ErrorBoundary>
   );
 }

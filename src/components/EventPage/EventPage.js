@@ -47,6 +47,7 @@ export default class EventPage extends Component {
       .then((post) => {
         this.context.addPost(post);
         this.props.history.push(`/event/${event_id}`);
+        window.location.reload(false);
       })
       .catch((error) => {
         console.error({ error });
@@ -54,25 +55,25 @@ export default class EventPage extends Component {
   }
   render() {
     const {
-      localEvents = [],
-      localPosts = [],
-      localOrganizations = [],
-      localAnimals = [],
+      globalEvents = [],
+      globalPosts = [],
+      globalOrganizations = [],
+      globalAnimals = [],
     } = this.context;
     const { event_id } = this.props.match.params;
-    const event = localEvents.find((event) => event.id === parseInt(event_id));
-    const posts = localPosts.filter(
+    const event = globalEvents.find((event) => event.id === parseInt(event_id));
+    const posts = globalPosts.filter(
       (post) => post.event_id === parseInt(event_id)
     );
-    const org = localOrganizations.find(
+    const org = globalOrganizations.find(
       (org) => org.id === parseInt(event.org_id)
     );
-    const animal = localAnimals.find(
+    const animal = globalAnimals.find(
       (animal) => animal.id === parseInt(event.animal_id)
     );
     return (
       <ErrorBoundary>
-        <div className="main-content">
+        <div className="event-content">
           <div>
             <h1>Event: {event ? event.title : null}</h1>
             <p>{org ? `Has to do with the ${org.name} organization.` : null}</p>

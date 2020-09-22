@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Organizations.css";
 
 import Organization from "../Organization/Organization";
 
@@ -10,7 +11,7 @@ export default class Organizations extends Component {
   static contextType = ApiContext;
 
   render() {
-    const organizations = this.context.localOrganizations;
+    const { globalOrganizations = [] } = this.context;
     return (
       <div className="org-content">
         <ErrorBoundary>
@@ -18,7 +19,7 @@ export default class Organizations extends Component {
           <NavLink to="/create-organization" className="add-button">
             <button>Create an Organization</button>
           </NavLink>
-          {organizations.map((org) => (
+          {globalOrganizations.map((org) => (
             <Organization
               id={org.id}
               key={org.id}
