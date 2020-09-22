@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./AddOrganization.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -7,6 +6,13 @@ import ApiContext from "../../APIcontext";
 import config from "../../config";
 
 export default class AddOrganization extends Component {
+  state = {
+    nameVer: true,
+    zcVer: true,
+    descVer: true,
+    typeVer: true,
+  };
+
   static defaultProps = {
     history: {
       push: () => {},
@@ -16,6 +22,29 @@ export default class AddOrganization extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    let errCount = 0;
+
+    if (e.target["name"].value.length === 0) {
+      this.setState({ titleVer: false });
+      errCount++;
+    }
+    if (e.target["zip_code"].value.length === 0) {
+      this.setState({ zcVer: false });
+      errCount++;
+    }
+    if (e.target["type"].value.length === 0) {
+      this.setState({ typeVer: false });
+      errCount++;
+    }
+    if (e.target["description"].value.length === 0) {
+      this.setState({ descVer: false });
+      errCount++;
+    }
+
+    if (errCount > 0) {
+      return;
+    }
 
     const org = {
       name: e.target["name"].value,
@@ -51,70 +80,79 @@ export default class AddOrganization extends Component {
 
   render() {
     return (
-      <div className="org-content">
-        <ErrorBoundary>
-          <h1>Add an Organization</h1>
-          <form onSubmit={this.handleSubmit} action="#">
-            <fieldset>
-              <div>
-                <label htmlFor="name">Name</label>
-              </div>
-              <div>
-                <input type="text" name="name" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="zip_code">Zip Code</label>
-              </div>
-              <div>
-                <input type="text" name="zip_code" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="description">Description</label>
-              </div>
-              <div>
-                <textarea type="text" name="description" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="type">Type</label>
-              </div>
-              <div>
-                <input type="text" name="type" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="address">Address</label>
-              </div>
-              <div>
-                <input type="text" name="address" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="website">Website</label>
-              </div>
-              <div>
-                <input type="text" name="website" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="phone_number">Phone Number</label>
-              </div>
-              <div>
-                <input type="tel" name="phone_number" />
-              </div>
-            </fieldset>
-            <button type="submit">Submit</button>
-          </form>
-        </ErrorBoundary>
-      </div>
+      <ErrorBoundary>
+        <h1>Add an Organization</h1>
+        <form onSubmit={this.handleSubmit} action="#">
+          <fieldset>
+            <div>
+              <label htmlFor="name">
+                Name{this.state.nameVer ? null : ": You must add a name."}
+              </label>
+            </div>
+            <div>
+              <input type="text" name="name" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="zip_code">
+                Zip Code{this.state.zcVer ? null : ": You must add a zip code."}
+              </label>
+            </div>
+            <div>
+              <input type="text" name="zip_code" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="description">
+                Description
+                {this.state.descVer ? null : ": You must add a description."}
+              </label>
+            </div>
+            <div>
+              <textarea type="text" name="description" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="type">
+                Type{this.state.typeVer ? null : ": You must add a type."}
+              </label>
+            </div>
+            <div>
+              <input type="text" name="type" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="address">Address - Enter if Known</label>
+            </div>
+            <div>
+              <input type="text" name="address" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="website">Website - Enter if Known</label>
+            </div>
+            <div>
+              <input type="text" name="website" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="phone_number">
+                Phone Number - Enter if Known
+              </label>
+            </div>
+            <div>
+              <input type="tel" name="phone_number" />
+            </div>
+          </fieldset>
+          <button type="submit">Submit</button>
+        </form>
+      </ErrorBoundary>
     );
   }
 }

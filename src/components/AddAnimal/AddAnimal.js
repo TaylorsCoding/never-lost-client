@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../../index.css";
-import "./AddAnimal.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -8,6 +7,15 @@ import ApiContext from "../../APIcontext";
 import config from "../../config";
 
 export default class AddAnimal extends Component {
+  state = {
+    nameVer: true,
+    speciesVer: true,
+    zcVer: true,
+    lostVer: true,
+    colorVer: true,
+    genderVer: true,
+  };
+
   static defaultProps = {
     history: {
       push: () => {},
@@ -17,9 +25,39 @@ export default class AddAnimal extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    let errCount = 0;
 
     if (e.target["in_shelter"].value === "...") {
       e.target["in_shelter"].value = 0;
+    }
+
+    if (e.target["name"].value.length === 0) {
+      this.setState({ nameVer: false });
+      errCount++;
+    }
+    if (e.target["species"].value.length === 0) {
+      this.setState({ speciesVer: false });
+      errCount++;
+    }
+    if (e.target["color"].value.length === 0) {
+      this.setState({ colorVer: false });
+      errCount++;
+    }
+    if (e.target["gender"].value.length === 0) {
+      this.setState({ genderVer: false });
+      errCount++;
+    }
+    if (e.target["zip_code"].value.length === 0) {
+      this.setState({ zcVer: false });
+      errCount++;
+    }
+    if (e.target["in_distress"].value.length === 0) {
+      this.setState({ disVer: false });
+      errCount++;
+    }
+
+    if (errCount > 0) {
+      return;
     }
 
     const animal = {
@@ -61,12 +99,14 @@ export default class AddAnimal extends Component {
     const { localOrganizations = [] } = this.context;
     return (
       <ErrorBoundary>
-        <div className="animal-content">
+        <div className="main-content">
           <h1>Add an Animal!</h1>
           <form onSubmit={this.handleSubmit} action="#">
             <fieldset>
               <div>
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">
+                  Name {this.state.nameVer ? null : ": You must add a name."}
+                </label>
               </div>
               <div>
                 <input type="text" name="name" />
@@ -74,7 +114,10 @@ export default class AddAnimal extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="species">Species</label>
+                <label htmlFor="species">
+                  Species
+                  {this.state.speciesVer ? null : ": You must add a species."}
+                </label>
               </div>
               <div>
                 <input type="text" name="species" />
@@ -83,6 +126,7 @@ export default class AddAnimal extends Component {
             <fieldset>
               <div>
                 <label htmlFor="breed">Breed</label>
+                If you don't know the breed, you don't have to enter one.
               </div>
               <div>
                 <input type="text" name="breed" />
@@ -90,7 +134,9 @@ export default class AddAnimal extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="color">Color</label>
+                <label htmlFor="color">
+                  Color{this.state.colorVer ? null : ": You must add a color."}
+                </label>
               </div>
               <div>
                 <input type="text" name="color" />
@@ -99,6 +145,7 @@ export default class AddAnimal extends Component {
             <fieldset>
               <div>
                 <label htmlFor="age">Age</label>
+                If you don't know the age, don't worry about it.
               </div>
               <div>
                 <input type="number" name="age" />
@@ -106,7 +153,12 @@ export default class AddAnimal extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="gender">Gender</label>
+                <label htmlFor="gender">
+                  Gender
+                  {this.state.genderVer
+                    ? null
+                    : ": You must indicate a gender."}
+                </label>
               </div>
               <div>
                 Male
@@ -119,15 +171,20 @@ export default class AddAnimal extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">
+                  Add a description if you want.
+                </label>
               </div>
               <div>
-                <input type="text" name="description" />
+                <textarea name="description" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="zip_code">Zip Code</label>
+                <label htmlFor="zip_code">
+                  Zip Code{" "}
+                  {this.state.zcVer ? null : ": You must add a zip code."}
+                </label>
               </div>
               <div>
                 <input type="text" name="zip_code" />
@@ -135,7 +192,12 @@ export default class AddAnimal extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="is_lost">Is this animal lost?</label>
+                <label htmlFor="is_lost">
+                  Is this animal lost?
+                  {this.state.lostVer
+                    ? null
+                    : " You must indicate if it is lost."}
+                </label>
               </div>
               <div>
                 <input type="checkbox" name="is_lost" />
@@ -145,7 +207,7 @@ export default class AddAnimal extends Component {
               <div>
                 <label htmlFor="in_shelter">Is this animal in a shelter?</label>
               </div>
-              <div>If it is, choose a shelter below.</div>
+              <div> If it is, choose from a shelter below. </div>
               <select name="in_shelter">
                 <option>...</option>
                 {localOrganizations.map((organization) => (

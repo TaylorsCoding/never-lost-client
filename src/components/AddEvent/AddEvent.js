@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./AddEvent.css";
 
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
@@ -7,6 +6,14 @@ import ApiContext from "../../APIcontext";
 import config from "../../config";
 
 export default class AddEvent extends Component {
+  state = {
+    titleVer: true,
+    zcVer: true,
+    typeVer: true,
+    descVer: true,
+    aidVer: true,
+    oidVer: true,
+  };
   static defaultProps = {
     history: {
       push: () => {},
@@ -17,10 +24,33 @@ export default class AddEvent extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
+    let errCount = 0;
+
+    if (e.target["title"].value.length === 0) {
+      this.setState({ titleVer: false });
+      errCount++;
+    }
+    if (e.target["zip_code"].value.length === 0) {
+      this.setState({ zcVer: false });
+      errCount++;
+    }
+    if (e.target["type"].value.length === 0) {
+      this.setState({ typeVer: false });
+      errCount++;
+    }
+    if (e.target["description"].value.length === 0) {
+      this.setState({ descVer: false });
+      errCount++;
+    }
+
+    if (errCount > 0) {
+      return;
+    }
+
     if (e.target["associatedAnimal"].value === "...")
-      e.target["associatedAnimal"].value = null;
+      e.target["associatedAnimal"].value = 0;
     if (e.target["associatedOrganization"].value === "...")
-      e.target["associatedOrganization"].value = null;
+      e.target["associatedOrganization"].value = 0;
 
     const event = {
       title: e.target["title"].value,
@@ -56,78 +86,82 @@ export default class AddEvent extends Component {
   render() {
     const { localOrganizations = [], localAnimals = [] } = this.context;
     return (
-      <div className="event-content">
-        <ErrorBoundary>
-          <h1>Create an Event</h1>
-          <form onSubmit={this.handleSubmit} action="#">
-            <fieldset>
-              <div>
-                <label htmlFor="title">Title</label>
-              </div>
-              <div>
-                <input type="text" name="title" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="zip_code">Zip Code</label>
-              </div>
-              <div>
-                <input type="text" name="zip_code" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="type">Type</label>
-              </div>
-              <div>
-                <input type="text" name="type" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="description">Description</label>
-              </div>
-              <div>
-                <input type="text" name="description" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="associatedAnimal">Associated Animal</label>
-              </div>
-              <div>
-                <select name="associatedAnimal">
-                  <option>...</option>
-                  {localAnimals.map((animal) => (
-                    <option key={animal.id} value={animal.id}>
-                      {animal.name} - {animal.zip_code}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="associatedOrganization">
-                  Associated Organization
-                </label>
-              </div>
-              <div>
-                <select name="associatedOrganization">
-                  <option>...</option>
-                  {localOrganizations.map((organization) => (
-                    <option key={organization.id} value={organization.id}>
-                      {organization.name} - {organization.zip_code}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </fieldset>
-            <button type="submit">Submit</button>
-          </form>
-        </ErrorBoundary>
-      </div>
+      <ErrorBoundary>
+        <h1>Create an Event</h1>
+        <form onSubmit={this.handleSubmit} action="#">
+          <fieldset>
+            <div>
+              <label htmlFor="title">
+                Title{this.state.titleVer ? null : ": You must add a title."}
+              </label>
+            </div>
+            <div>
+              <input type="text" name="title" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="zip_code">
+                Zip Code{this.state.zcVer ? null : ": You must add a zip code."}
+              </label>
+            </div>
+            <div>
+              <input type="text" name="zip_code" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="type">
+                Type{this.state.typeVer ? null : ": You must add a type."}
+              </label>
+            </div>
+            <div>
+              <input type="text" name="type" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="description">Description</label>
+            </div>
+            <div>
+              <input type="text" name="description" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="associatedAnimal">Associated Animal</label>
+            </div>
+            <div>
+              <select name="associatedAnimal">
+                <option>...</option>
+                {localAnimals.map((animal) => (
+                  <option key={animal.id} value={animal.id}>
+                    {animal.name} - {animal.zip_code}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label htmlFor="associatedOrganization">
+                Associated Organization
+              </label>
+            </div>
+            <div>
+              <select name="associatedOrganization">
+                <option>...</option>
+                {localOrganizations.map((organization) => (
+                  <option key={organization.id} value={organization.id}>
+                    {organization.name} - {organization.zip_code}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </fieldset>
+          <button type="submit">Submit</button>
+        </form>
+      </ErrorBoundary>
     );
   }
 }

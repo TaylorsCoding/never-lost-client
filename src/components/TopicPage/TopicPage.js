@@ -7,6 +7,9 @@ import ApiContext from "../../APIcontext";
 import config from "../../config";
 
 export default class TopicPage extends Component {
+  state = {
+    postVer: true,
+  };
   static defaultProps = {
     history: {
       goBack: () => {},
@@ -19,6 +22,11 @@ export default class TopicPage extends Component {
 
   handleSubmit(e, topic_id) {
     e.preventDefault();
+
+    if (e.target["content"].value.length === 0) {
+      this.setState({ postVer: false });
+      return;
+    }
 
     const post = {
       content: e.target["content"].value,
@@ -94,6 +102,11 @@ export default class TopicPage extends Component {
               this.handleSubmit(e, this.props.match.params.topic_id)
             }
           >
+            <label>
+              {this.state.postVer
+                ? null
+                : "You must add some text to the post."}
+            </label>
             <input type="text" name="content" />
             <input type="submit" />
           </form>

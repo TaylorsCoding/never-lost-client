@@ -8,6 +8,9 @@ import Post from "../Post/Post";
 import config from "../../config";
 
 export default class EventPage extends Component {
+  state = {
+    postVer: true,
+  };
   static defaultProps = {
     match: {
       params: {},
@@ -17,6 +20,11 @@ export default class EventPage extends Component {
 
   handleSubmit(e, event_id) {
     e.preventDefault();
+
+    if (e.target["content"].value.length === 0) {
+      this.setState({ postVer: false });
+      return;
+    }
 
     const post = {
       content: e.target["content"].value,
@@ -105,9 +113,12 @@ export default class EventPage extends Component {
               }
             >
               <div>
-                <label htmlFor="content">New Post</label>
+                <label for="content">New Post</label>
               </div>
               <div>
+                <label>
+                  {this.state.postVer ? null : "You must enter some text."}
+                </label>
                 <textarea name="content" />
               </div>
               <div>
