@@ -2,6 +2,15 @@ import React from "react";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Documentation
+ *
+ * Used to populate events page with individual event data.
+ *
+ *
+ * @param {*} props contains information about the individual event
+ */
+
 export default function EventComponent(props) {
   return (
     <ErrorBoundary>

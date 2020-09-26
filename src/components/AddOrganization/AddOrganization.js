@@ -6,6 +6,23 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ApiContext from "../../APIcontext";
 import config from "../../config";
 
+/**
+ * Documentation
+ *
+ * State Variables
+ *
+ * @param servErr returns server error
+ * @param nameVer whether name has been input
+ * @param zcVer whether zip code has been input
+ * @param descVer whether description has been input
+ * @param typeVer whether type has been input
+ *
+ * @param defaultProps contains @param history to navigate after post has been made
+ *
+ * @function handleSubmit posts data to server to create a new organization
+ *  @param errCount counts the validation errors
+ */
+
 export default class AddOrganization extends Component {
   state = {
     servErr: "",

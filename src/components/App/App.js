@@ -112,6 +112,11 @@ class App extends Component {
     }
   }
 
+  /**
+   * @function fetchData used to get local data
+   * @param {string || number} zip is to find data close to or in input zip
+   */
+
   fetchData = (zip) => {
     console.log(zip);
     Promise.all([
@@ -160,6 +165,10 @@ class App extends Component {
         console.error({ error });
       });
   };
+
+  /**
+   * All handle functions to update app state.
+   */
 
   handleAddAnimal = (animal) => {
     this.setState({ localAnimals: [...this.state.localAnimals, animal] });
@@ -245,6 +254,8 @@ class App extends Component {
     });
   };
 
+  // All routes to enable navigation
+
   renderRoutes() {
     return (
       <>
@@ -268,6 +279,8 @@ class App extends Component {
       </>
     );
   }
+
+  /**  @param value used to make contained data provided through APIcontext.Provider component*/
 
   render() {
     const value = {
@@ -298,6 +311,8 @@ class App extends Component {
       deleteOrganizaton: this.handleDeleteOrganization,
       deletePicture: this.handleDeletePicture,
     };
+
+    // Title and TopNavbar components display on every page.
 
     return (
       <APIcontext.Provider value={value}>

@@ -7,6 +7,16 @@ import ApiContext from "../../APIcontext";
 import Topic from "../Topic/Topic";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Documentation
+ *
+ * @param contextType references data in ApiContext
+ *
+ * @param globalTopics holds all topics
+ * @param localTopics holds topics in set zip code or in zip code +- 500
+ * @param globalEvents holds all events
+ */
+
 export default class Chat extends Component {
   static contextType = ApiContext;
 

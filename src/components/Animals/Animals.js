@@ -7,7 +7,15 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 import ApiContext from "../../APIcontext";
 import { NavLink } from "react-router-dom";
-
+/**
+ * Documentation
+ * @class
+ *
+ * @param contextType refers to all data in ApiContext
+ *
+ * @param globalAnimals holds all animals
+ * @param localAnimals holds animals in current zip code and zip code in range +- 500
+ */
 export default class Animals extends Component {
   static contextType = ApiContext;
 

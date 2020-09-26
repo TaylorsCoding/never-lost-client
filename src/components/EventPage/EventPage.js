@@ -7,6 +7,22 @@ import ApiContext from "../../APIcontext";
 import Post from "../Post/Post";
 import config from "../../config";
 
+/**
+ * Documentation
+ *
+ * Serves to display all information about individual event on its own page.
+ * Allows for the creation of posts.
+ *
+ * @class EventPage
+ *
+ * @param state.postVer indicates if a message has been included in the post.
+ *
+ * @param defaultProps.match.params contains @param event_id to get the event to display on the page
+ *
+ *
+ * @function handleSubmit posts data to server to create a Post.
+ */
+
 export default class EventPage extends Component {
   state = {
     postVer: true,
@@ -53,6 +69,23 @@ export default class EventPage extends Component {
         console.error({ error });
       });
   }
+  /**
+   * @param globalEvents holds all events
+   * @param globalPosts holds all posts
+   * @param globalOrganizations holds all organizations
+   * @param globalAnimals holds all animals
+   *
+   * @param event_id is the id of the event displayed on this page
+   * @param event is the event displayed on this page
+   * @param posts are all the posts made on this event
+   * @param org is the associated organization, if there is one
+   * @param animal is the associated animal, if there is one
+   *
+   *
+   * The event information is displayed, the associated animal and organization
+   * displayed conditionally based on whether they exist or not. Then the posts
+   * on this event are displayed, as well as a form to create a new post.
+   */
   render() {
     const {
       globalEvents = [],

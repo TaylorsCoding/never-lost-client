@@ -3,6 +3,11 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import { NavLink } from "react-router-dom";
 
 // This component is responsible for displaying each animal on the animals page.
+/**
+ * @param props.breed is only entered if it exists
+ * @param props.age is only entered if it exists
+ * @param props.description is only entered if it exists
+ */
 
 export default function Animal(props) {
   return (

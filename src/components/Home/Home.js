@@ -5,6 +5,15 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 import ApiContext from "../../APIcontext";
 
+/**
+ * Documentation
+ * @class Homepage
+ *
+ * @param contextType references the data in ApiContext
+ *
+ * @function handleSubmit handles the submission of a zip code
+ */
+
 export default class Homepage extends Component {
   static contextType = ApiContext;
 

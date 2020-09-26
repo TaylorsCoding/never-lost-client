@@ -6,6 +6,14 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ApiContext from "../../APIcontext";
 import { NavLink } from "react-router-dom";
 
+/**
+ * Documentation
+ *
+ * Page designed for single animal, displays all data related to the animal.
+ *
+ * @param defaultProps holds @param match holds @param params holds @param animal_id to get the id of the animal in the url
+ */
+
 export default class AnimalPage extends Component {
   static defaultProps = {
     match: {
@@ -13,6 +21,12 @@ export default class AnimalPage extends Component {
     },
   };
   static contextType = ApiContext;
+  /**
+   * @param globalAnimals used to get the animal to display on the page with the @param animal_id
+   * @param globalOrganizations used to get the shelter the animal is in, if it is in a shelter
+   * @param animal is the animal found. its data is used to populate the page
+   * @param org is the shelter found. its name is displayed with a link to the organization's page
+   */
   render() {
     const { globalAnimals = [], globalOrganizations = [] } = this.context;
     const { animal_id } = this.props.match.params;
@@ -22,10 +36,6 @@ export default class AnimalPage extends Component {
     const org = globalOrganizations.find(
       (org) => org.id === (animal ? parseInt(animal.in_shelter) : null)
     );
-    const arr = [];
-    if (org) {
-      arr.push({ link: `/organizations/${org.id}`, name: org.name });
-    }
 
     return (
       <ErrorBoundary>
@@ -83,11 +93,10 @@ export default class AnimalPage extends Component {
                       Yes, {`${animal.gender === "Male" ? "he" : "she"}`} is
                       being taken good care of by{" "}
                     </span>
-                    {arr.map((org) => (
-                      <>
-                        <NavLink to={org.link}>{org.name}</NavLink>
-                      </>
-                    ))}
+
+                    <NavLink to={`/organizations/${org.id}`}>
+                      {org.name}
+                    </NavLink>
                   </>
                 ) : (
                   "No"

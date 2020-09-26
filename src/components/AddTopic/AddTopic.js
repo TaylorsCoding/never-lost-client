@@ -6,6 +6,21 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ApiContext from "../../APIcontext";
 import config from "../../config";
 
+/**
+ * Documentation
+ *
+ * State Variables
+ *
+ * @param servErr returns error from server if exists
+ * @param titleVer whether title has been added
+ * @param zcVer whether zip code has been added
+ *
+ * @param defaultProps contains @param history to navigate after post has been made
+ *
+ * @function handleSubmit posts data to server to create new topic
+ *  @param errCount counts number of validation errors
+ */
+
 export default class AddTopic extends Component {
   state = {
     servErr: "",
@@ -68,6 +83,10 @@ export default class AddTopic extends Component {
         this.setState({ servErr: error });
       });
   };
+
+  /**
+   * @param globalEvents holds all events to select if topic is associated with event
+   */
 
   render() {
     const { globalEvents = [] } = this.context;
