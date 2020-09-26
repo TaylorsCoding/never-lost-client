@@ -8,6 +8,7 @@ import config from "../../config";
 
 export default class AddTopic extends Component {
   state = {
+    servErr: "",
     titleVer: true,
     zcVer: true,
   };
@@ -64,7 +65,7 @@ export default class AddTopic extends Component {
         this.props.history.push(`/chat`);
       })
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: error });
       });
   };
 
@@ -74,29 +75,32 @@ export default class AddTopic extends Component {
       <div className="chat-content">
         <ErrorBoundary>
           <h1>Add a Topic</h1>
+          {this.state.servErr.length > 0 ? this.state.servErr : null}
           <form onSubmit={this.handleSubmit} action="#">
             <fieldset>
               <div>
-                <label htmlFor="title">Title</label>
+                <label htmlFor="add-topic-title">Title</label>
               </div>
               <div>
-                <input type="text" name="title" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="zip_code">Zip Code</label>
-              </div>
-              <div>
-                <input type="text" name="zip_code" />
+                <input type="text" name="title" id="add-topic-title" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="event_id">Is this topic about an event?</label>
+                <label htmlFor="add-topic-zipcode">Zip Code</label>
               </div>
               <div>
-                <select name="event_id">
+                <input type="text" name="zip_code" id="add-topic-zipcode" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="add-topic-event">
+                  Is this topic about an event?
+                </label>
+              </div>
+              <div>
+                <select name="event_id" id="add-topic-event">
                   <option>...</option>
                   {globalEvents.map((event) => (
                     <option key={event.id} value={event.id}>
@@ -108,7 +112,7 @@ export default class AddTopic extends Component {
             </fieldset>
             <button type="submit">Submit</button>
           </form>
-        </ErrorBoundary>{" "}
+        </ErrorBoundary>
       </div>
     );
   }

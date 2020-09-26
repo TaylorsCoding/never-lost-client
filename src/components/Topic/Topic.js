@@ -15,7 +15,7 @@ export default class Topic extends Component {
     return (
       <ErrorBoundary>
         <NavLink to={`/topic/${this.props.id}`}>
-          <h3>Title: {this.props.title}</h3>
+          <h3>{this.props.title}</h3>
         </NavLink>
         <p>Zip Code: {this.props.zip_code}</p>
         <p>{event ? `Part of the ${event.title} event.` : null}</p>

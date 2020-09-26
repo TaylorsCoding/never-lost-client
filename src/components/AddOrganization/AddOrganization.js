@@ -8,6 +8,7 @@ import config from "../../config";
 
 export default class AddOrganization extends Component {
   state = {
+    servErr: "",
     nameVer: true,
     zcVer: true,
     descVer: true,
@@ -75,7 +76,7 @@ export default class AddOrganization extends Component {
         this.props.history.push(`/organizations`);
       })
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: error });
       });
   };
 
@@ -84,73 +85,74 @@ export default class AddOrganization extends Component {
       <div className="org-content">
         <ErrorBoundary>
           <h1>Add an Organization</h1>
+          {this.state.servErr.length > 0 ? this.state.servErr : null}
           <form onSubmit={this.handleSubmit} action="#">
             <fieldset>
               <div>
-                <label htmlFor="name">
+                <label htmlFor="add-org-name">
                   Name{this.state.nameVer ? null : ": You must add a name."}
                 </label>
               </div>
               <div>
-                <input type="text" name="name" />
+                <input type="text" name="name" id="add-org-name" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="zip_code">
+                <label htmlFor="add-org-zipcode">
                   Zip Code
                   {this.state.zcVer ? null : ": You must add a zip code."}
                 </label>
               </div>
               <div>
-                <input type="text" name="zip_code" />
+                <input type="text" name="zip_code" id="add-org-zipcode" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="description">
+                <label htmlFor="add-org-desc">
                   Description
                   {this.state.descVer ? null : ": You must add a description."}
                 </label>
               </div>
               <div>
-                <textarea type="text" name="description" />
+                <textarea type="text" name="description" id="add-org-desc" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="type">
+                <label htmlFor="add-org-type">
                   Type{this.state.typeVer ? null : ": You must add a type."}
                 </label>
               </div>
               <div>
-                <input type="text" name="type" />
+                <input type="text" name="type" id="add-org-type" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="address">Address - Enter if Known</label>
+                <label htmlFor="add-org-add">Address - Enter if Known</label>
               </div>
               <div>
-                <input type="text" name="address" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <div>
-                <label htmlFor="website">Website - Enter if Known</label>
-              </div>
-              <div>
-                <input type="text" name="website" />
+                <input type="text" name="address" id="add-org-add" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="phone_number">
+                <label htmlFor="add-org-web">Website - Enter if Known</label>
+              </div>
+              <div>
+                <input type="text" name="website" id="add-org-web" />
+              </div>
+            </fieldset>
+            <fieldset>
+              <div>
+                <label htmlFor="add-org-phone">
                   Phone Number - Enter if Known
                 </label>
               </div>
               <div>
-                <input type="tel" name="phone_number" />
+                <input type="tel" name="phone_number" id="add-org-phone" />
               </div>
             </fieldset>
             <button type="submit">Submit</button>

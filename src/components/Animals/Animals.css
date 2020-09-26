@@ -1,6 +1,12 @@
 .add-button {
   display: flex;
   justify-content: center;
+  padding: 5%;
+}
+
+.add-button button {
+  width: 220px;
+  height: 30px;
 }
 
 .animal-content {

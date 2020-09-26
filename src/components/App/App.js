@@ -21,10 +21,13 @@ import config from "../../config";
 import APIcontext from "../../APIcontext";
 
 class App extends Component {
+  // Create context/state variables that will serve the entire app.
+
+  // The difference between local and global is:
+  // global is all data
+  // local is data in the zip code or +- 500 of the zip code
   state = {
-    viewportWidth: 0,
-    viewportHeight: 0,
-    localArea: 45000,
+    localArea: "45000",
     localEvents: [],
     localAnimals: [],
     localTopics: [],
@@ -40,55 +43,18 @@ class App extends Component {
     verification: false,
   };
 
-  // Get area first
+  // Get area first, if they have entered it on the page before
+  // it has been saved as a cookie. Otherwise,
 
   // Get local events, animals, users,
 
   componentDidMount() {
-    this.setState({ localArea: localStorage.getItem("local_zip") });
-    this.setState({
-      viewportWidth: Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      ),
-      viewportHeight: Math.max(
-        document.documentElement.clientHeight || 0,
-        window.innerHeight || 0
-      ),
-    });
-    // Promise.all([
-    //   fetch(`${config.API_ENDPOINT}/topics/zip/${this.state.localArea}`),
-    //   fetch(`${config.API_ENDPOINT}/animals/zip/${this.state.localArea}`),
-    //   fetch(`${config.API_ENDPOINT}/events/zip/${this.state.localArea}`),
-    //   fetch(`${config.API_ENDPOINT}/organizations/zip/${this.state.localArea}`),
-    // ])
-    //   .then(([topicsRes, animalsRes, eventsRes, orgsRes]) => {
-    //     if (!topicsRes.ok)
-    //       return topicsRes.json().then((e) => Promise.reject(e));
-    //     if (!animalsRes.ok)
-    //       return animalsRes.json().then((e) => Promise.reject(e));
-    //     if (!eventsRes.ok)
-    //       return eventsRes.json().then((e) => Promise.reject(e));
-    //     if (!orgsRes.ok) return orgsRes.json().then((e) => Promise.reject(e));
-
-    //     return Promise.all([
-    //       topicsRes.json(),
-    //       animalsRes.json(),
-    //       eventsRes.json(),
-    //       orgsRes.json(),
-    //     ]);
-    //   })
-    //   .then(([localTopics, localAnimals, localEvents, localOrganizations]) => {
-    //     this.setState({
-    //       localTopics,
-    //       localAnimals,
-    //       localEvents,
-    //       localOrganizations,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.error({ error });
-    //   });
+    if (localStorage.getItem("local_zip").length > 0) {
+      this.setState({
+        localArea: JSON.parse(localStorage.getItem("local_zip")),
+      });
+      this.fetchData(JSON.parse(localStorage.getItem("local_zip")));
+    }
 
     Promise.all([
       fetch(`${config.API_ENDPOINT}/topics`),
@@ -147,19 +113,7 @@ class App extends Component {
   }
 
   fetchData = (zip) => {
-    // Promise.all([fetch(`${config.API_ENDPOINT}/topics/zip/${zip}`)])
-    //   .then(([topicsRes]) => {
-    //     if (!topicsRes.ok)
-    //       return topicsRes.json().then((e) => Promise.reject(e));
-    //     return Promise.all([topicsRes.json()]);
-    //   })
-    //   .then(([localTopics]) => {
-    //     this.setState({ localTopics });
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-
+    console.log(zip);
     Promise.all([
       fetch(`${config.API_ENDPOINT}/topics/zip/${zip}`),
       fetch(`${config.API_ENDPOINT}/animals/zip/${zip}`),

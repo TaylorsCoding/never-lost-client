@@ -10,30 +10,107 @@ export default class Events extends Component {
   static contextType = ApiContext;
 
   render() {
-    const { globalEvents = [] } = this.context;
+    // Get these four from context because they are all used
+
+    // local and global events are both pulled if they exist, with local
+    // displaying first.
+
+    // globalOrganizations and globalAnimals are referenced if an event is
+    // associated with one or both an animal and an organization.
+
+    // A conditional operator is used to display the name of the
+    // organization or animal if the event is associated with one.
+    const {
+      globalEvents = [],
+      localEvents = [],
+      globalOrganizations = [],
+      globalAnimals = [],
+    } = this.context;
     return (
       <div className="event-content">
         <ErrorBoundary>
           <h1>Events</h1>
-          <NavLink to="/create-event" className="add-button">
-            <button>Create New Event</button>
-          </NavLink>
-          <ol>
-            {globalEvents.map((event) => (
-              <li key={event.id}>
+          <div className="add-button">
+            <NavLink to="/create-event">
+              <button>Create New Event</button>
+            </NavLink>
+          </div>
+          {localEvents.length > 0 ? (
+            <>
+              <h1>Local Events</h1>
+              {localEvents.map((event) => (
                 <EventComponent
                   id={event.id}
+                  key={event.id}
                   title={event.title}
                   type={event.type}
                   zip_code={event.zip_code}
                   description={event.description}
                   date_published={event.date_published}
-                  animal_id={event.animal_id}
-                  org_id={event.org_id}
+                  animal_id={
+                    event.animal_id
+                      ? globalAnimals.find(
+                          (animal) =>
+                            parseInt(animal.id) === parseInt(event.animal_id)
+                        )
+                        ? globalAnimals.find(
+                            (animal) =>
+                              parseInt(animal.id) === parseInt(event.animal_id)
+                          ).name
+                        : null
+                      : null
+                  }
+                  org_id={
+                    event.org_id
+                      ? globalOrganizations.find(
+                          (org) => parseInt(org.id) === parseInt(event.org_id)
+                        )
+                        ? globalOrganizations.find(
+                            (org) => parseInt(org.id) === parseInt(event.org_id)
+                          ).name
+                        : null
+                      : null
+                  }
                 />
-              </li>
-            ))}
-          </ol>
+              ))}
+            </>
+          ) : null}
+          <h1>All Events</h1>
+          {globalEvents.map((event) => (
+            <EventComponent
+              id={event.id}
+              key={event.id}
+              title={event.title}
+              type={event.type}
+              zip_code={event.zip_code}
+              description={event.description}
+              date_published={event.date_published}
+              animal_id={
+                event.animal_id
+                  ? globalAnimals.find(
+                      (animal) =>
+                        parseInt(animal.id) === parseInt(event.animal_id)
+                    )
+                    ? globalAnimals.find(
+                        (animal) =>
+                          parseInt(animal.id) === parseInt(event.animal_id)
+                      ).name
+                    : null
+                  : null
+              }
+              org_id={
+                event.org_id
+                  ? globalOrganizations.find(
+                      (org) => parseInt(org.id) === parseInt(event.org_id)
+                    )
+                    ? globalOrganizations.find(
+                        (org) => parseInt(org.id) === parseInt(event.org_id)
+                      ).name
+                    : null
+                  : null
+              }
+            />
+          ))}
         </ErrorBoundary>
       </div>
     );

@@ -5,9 +5,29 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 import ApiContext from "../../APIcontext";
 import config from "../../config";
+/**
+ * Documentation
+ *
+ * State variables
+ *
+ * @param servErr holds error returned from server
+ * @param titleVer whether title is entered
+ * @param zcVer whether zipcode is entered
+ * @param typeVer whether type is entered
+ * @param descVer whether description is entered
+ * @param aidVer whether animal id is entered
+ * @param oidVer whether org id is entered
+ *
+ * @param defaultProps Contains @param history in order to allow for navigation after the post.
+ *
+ * @function handleSubmit posts the data to create a new event
+ *  @param errCount counts the validation errors
+ *
+ */
 
 export default class AddEvent extends Component {
   state = {
+    servErr: "",
     titleVer: true,
     zcVer: true,
     typeVer: true,
@@ -80,9 +100,14 @@ export default class AddEvent extends Component {
         this.props.history.push(`/events`);
       })
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: error });
       });
   };
+
+  /**
+   * @param globalOrganizations holds all organizations to select if event is associated with an organization
+   * @param globalAnimals holds all animals to select if event is associated with an animal
+   */
 
   render() {
     const { globalOrganizations = [], globalAnimals = [] } = this.context;
@@ -90,52 +115,53 @@ export default class AddEvent extends Component {
       <div className="event-content">
         <ErrorBoundary>
           <h1>Create an Event</h1>
+          {this.state.servErr.length > 0 ? this.state.servErr : null}
           <form onSubmit={this.handleSubmit} action="#">
             <fieldset>
               <div>
-                <label htmlFor="title">
+                <label htmlFor="add-event-title">
                   Title{this.state.titleVer ? null : ": You must add a title."}
                 </label>
               </div>
               <div>
-                <input type="text" name="title" />
+                <input type="text" name="title" id="add-event-title" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="zip_code">
+                <label htmlFor="add-event-zipcode">
                   Zip Code
                   {this.state.zcVer ? null : ": You must add a zip code."}
                 </label>
               </div>
               <div>
-                <input type="text" name="zip_code" />
+                <input type="text" name="zip_code" id="add-event-zipcode" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="type">
+                <label htmlFor="add-event-type">
                   Type{this.state.typeVer ? null : ": You must add a type."}
                 </label>
               </div>
               <div>
-                <input type="text" name="type" />
+                <input type="text" name="type" id="add-event-type" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="description">Description</label>
+                <label htmlFor="add-event-desc">Description</label>
               </div>
               <div>
-                <input type="text" name="description" />
+                <textarea type="text" name="description" id="add-event-desc" />
               </div>
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="associatedAnimal">Associated Animal</label>
+                <label htmlFor="add-event-associan">Associated Animal</label>
               </div>
               <div>
-                <select name="associatedAnimal">
+                <select name="associatedAnimal" id="add-event-associan">
                   <option>...</option>
                   {globalAnimals.map((animal) => (
                     <option key={animal.id} value={animal.id}>
@@ -147,12 +173,12 @@ export default class AddEvent extends Component {
             </fieldset>
             <fieldset>
               <div>
-                <label htmlFor="associatedOrganization">
+                <label htmlFor="add-event-associorg">
                   Associated Organization
                 </label>
               </div>
               <div>
-                <select name="associatedOrganization">
+                <select name="associatedOrganization" id="add-event-associorg">
                   <option>...</option>
                   {globalOrganizations.map((organization) => (
                     <option key={organization.id} value={organization.id}>

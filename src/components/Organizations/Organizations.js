@@ -11,14 +11,36 @@ export default class Organizations extends Component {
   static contextType = ApiContext;
 
   render() {
-    const { globalOrganizations = [] } = this.context;
+    // Both global and local organizations are pulled if they exist
+    // local organizations display first, global organizations always display
+    const { globalOrganizations = [], localOrganizations = [] } = this.context;
     return (
       <div className="org-content">
         <ErrorBoundary>
           <h1>Organizations</h1>
-          <NavLink to="/create-organization" className="add-button">
-            <button>Create an Organization</button>
-          </NavLink>
+          <div>
+            <NavLink to="/create-organization" className="add-button">
+              <button>Create an Organization</button>
+            </NavLink>
+          </div>
+          {localOrganizations.length > 0 ? (
+            <>
+              <h1>Local Organizations</h1>
+              {localOrganizations.map((org) => (
+                <Organization
+                  id={org.id}
+                  key={org.id}
+                  name={org.name}
+                  zip_code={org.zip_code}
+                  description={org.description}
+                  type={org.type}
+                  address={org.address}
+                  website={org.website}
+                  phone_number={org.phone_number}
+                />
+              ))}
+            </>
+          ) : null}
           {globalOrganizations.map((org) => (
             <Organization
               id={org.id}

@@ -12,16 +12,43 @@ export default class Animals extends Component {
   static contextType = ApiContext;
 
   render() {
-    const { globalAnimals = [] } = this.context;
+    // global and local animals are both pulled if they exist
+    // local animals will only exist if there is a zipcode on file
+    // local animals displays first, but global animals always displays.
+    const { globalAnimals = [], localAnimals = [] } = this.context;
 
     return (
       <div className="animal-content">
         <ErrorBoundary>
           <div className="animals-main">
             <h1>Animals</h1>
-            <NavLink to="/create-animal" className="add-button">
-              <button>Add an Animal!</button>
-            </NavLink>
+            <div className="add-button">
+              <NavLink to="/create-animal">
+                <button>Add an Animal!</button>
+              </NavLink>
+            </div>
+            {localAnimals.length > 0 ? (
+              <>
+                <h1>Local Animals</h1>
+                {localAnimals.map((animal) => (
+                  <Animal
+                    id={animal.id}
+                    key={animal.id}
+                    name={animal.name}
+                    species={animal.species}
+                    breed={animal.breed}
+                    color={animal.color}
+                    age={animal.age}
+                    gender={animal.gender}
+                    description={animal.description}
+                    zip_code={animal.zip_code}
+                    is_lost={animal.is_lost ? "Yes" : "No"}
+                    in_shelter={animal.in_shelter ? "Yes" : "No"}
+                  />
+                ))}
+              </>
+            ) : null}
+            <h1>All Animals</h1>
             {globalAnimals.map((animal) => (
               <Animal
                 id={animal.id}
