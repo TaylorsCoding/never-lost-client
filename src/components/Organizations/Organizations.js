@@ -18,8 +18,8 @@ export default class Organizations extends Component {
       <div className="org-content">
         <ErrorBoundary>
           <h1>Organizations</h1>
-          <div>
-            <NavLink to="/create-organization" className="add-button">
+          <div className="add-button">
+            <NavLink to="/create-organization">
               <button>Create an Organization</button>
             </NavLink>
           </div>
@@ -41,6 +41,7 @@ export default class Organizations extends Component {
               ))}
             </>
           ) : null}
+          <h1>All Organizations</h1>
           {globalOrganizations.map((org) => (
             <Organization
               id={org.id}
