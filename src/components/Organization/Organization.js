@@ -10,6 +10,7 @@ export default function Organization(props) {
       </NavLink>
       <p>Type: {props.type}</p>
       <p>Description: {props.description}</p>
+      <p>Zip Code: {props.zip_code}</p>
       {props.address ? <p>Address: {props.address}</p> : null}
       {props.website ? <p>Website: {props.website}</p> : null}
       {props.phone_number ? <p>Phone Number: {props.phone_number}</p> : null}

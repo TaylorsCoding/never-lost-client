@@ -15,10 +15,33 @@ import ApiContext from "../../APIcontext";
  */
 
 export default class Homepage extends Component {
+  state = {
+    zcVerProper: false,
+    zcVerNonQuotes: false,
+  };
+
   static contextType = ApiContext;
 
   handleSubmit(e) {
     e.preventDefault();
+
+    // Using this regex to check for valid zip codes.
+    const regex = RegExp("^[0-9]{5}(?:-[0-9]{4})?$");
+    if (!regex.test(e.target["zip_code"].value)) {
+      this.setState({ zcVerProper: true });
+      if (
+        e.target["zip_code"].value[0] === '"' ||
+        e.target["zip_code"].value[e.target["zip_code"].value.length - 1] ===
+          '"'
+      ) {
+        this.setState({ zcVerNonQuotes: true });
+      }
+      return;
+    } else {
+      this.setState({ zcVerProper: false });
+      this.setState({ zcVerNonQuotes: false });
+    }
+
     localStorage.setItem("local_zip", e.target["zip_code"].value);
     this.context.setLocalArea(localStorage.getItem("local_zip"));
   }
@@ -83,6 +106,20 @@ export default class Homepage extends Component {
               <section>
                 <div>
                   <h2>Enter your zip-code!</h2>
+                  {this.state.zcVerProper ? (
+                    <p>
+                      You must enter a registered zip code belonging to the
+                      United states of America.
+                    </p>
+                  ) : null}
+                  {this.state.zcVerNonQuotes ? (
+                    <p>
+                      Enter the zip-code without anything else attacched to it.
+                      <br />
+                      For example, 22030 is a correct input of a zip code, not
+                      "22030".
+                    </p>
+                  ) : null}
                   <p className="light-text slim">
                     Go to one of the tabs to see your results!
                   </p>

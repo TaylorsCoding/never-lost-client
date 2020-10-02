@@ -49,11 +49,12 @@ class App extends Component {
   // Get local events, animals, users,
 
   componentDidMount() {
+    console.log(localStorage.getItem("local_zip"));
     if (localStorage.getItem("local_zip")) {
       this.setState({
-        localArea: JSON.parse(localStorage.getItem("local_zip")),
+        localArea: localStorage.getItem("local_zip"),
       });
-      this.fetchData(JSON.parse(localStorage.getItem("local_zip")));
+      this.fetchData(localStorage.getItem("local_zip"));
     }
 
     Promise.all([
