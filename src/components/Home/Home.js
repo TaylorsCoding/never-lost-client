@@ -114,14 +114,18 @@ export default class Homepage extends Component {
                   ) : null}
                   {this.state.zcVerNonQuotes ? (
                     <p>
-                      Enter the zip-code without anything else attacched to it.
+                      Enter the zip-code without anything else attatched to it.
                       <br />
                       For example, 22030 is a correct input of a zip code, not
                       "22030".
                     </p>
                   ) : null}
                   <p className="light-text slim">
-                    Go to one of the tabs to see your results!
+                    Entering a zip-code will help you find
+                    <br />
+                    Animals, Events, Chats, and Organzizations
+                    <br />
+                    nearby!
                   </p>
                   <h3>Current Zip-Code: {localArea ? localArea : null}</h3>
                   <form onSubmit={(e) => this.handleSubmit(e)} action="#">

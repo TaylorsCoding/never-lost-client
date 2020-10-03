@@ -27,6 +27,7 @@ class App extends Component {
   // global is all data
   // local is data in the zip code or +- 500 of the zip code
   state = {
+    servErr: "",
     localArea: "45000",
     localEvents: [],
     localAnimals: [],
@@ -49,7 +50,6 @@ class App extends Component {
   // Get local events, animals, users,
 
   componentDidMount() {
-    console.log(localStorage.getItem("local_zip"));
     if (localStorage.getItem("local_zip")) {
       this.setState({
         localArea: localStorage.getItem("local_zip"),
@@ -100,7 +100,7 @@ class App extends Component {
         }
       )
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: `${this.state.servErr}\n Error:\n${error}` });
       });
   }
 
@@ -119,7 +119,6 @@ class App extends Component {
    */
 
   fetchData = (zip) => {
-    console.log(zip);
     Promise.all([
       fetch(`${config.API_ENDPOINT}/topics/zip/${zip}`),
       fetch(`${config.API_ENDPOINT}/animals/zip/${zip}`),
@@ -163,7 +162,7 @@ class App extends Component {
         }
       )
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: `${this.state.servErr}\n Error:\n${error}` });
       });
   };
 
@@ -172,40 +171,40 @@ class App extends Component {
    */
 
   handleAddAnimal = (animal) => {
-    this.setState({ localAnimals: [...this.state.localAnimals, animal] });
+    this.setState({ globalAnimals: [...this.state.globalAnimals, animal] });
   };
 
   handleAddEvent = (event) => {
-    this.setState({ localEvents: [...this.state.localEvents, event] });
+    this.setState({ globalEvents: [...this.state.globalEvents, event] });
   };
 
   handleAddTopic = (topic) => {
-    this.setState({ localTopics: [...this.state.localTopics, topic] });
+    this.setState({ globalTopics: [...this.state.globalTopics, topic] });
   };
 
   handleAddPost = (post) => {
-    this.setState({ localPosts: [...this.state.localPosts, post] });
+    this.setState({ globalPosts: [...this.state.globalPosts, post] });
   };
 
   handleAddOrganization = (organization) => {
     this.setState({
-      localOrganizations: [...this.state.localOrganizations, organization],
+      globalOrganizations: [...this.state.globalOrganizations, organization],
     });
   };
 
   handleAddPicture = (picture) => {
-    this.setState({ localPictures: [...this.state.localPictures, picture] });
+    this.setState({ globalPictures: [...this.state.globalPictures, picture] });
   };
 
   handleDeleteUser = (userid) => {
     this.setState({
-      localUsers: this.state.localUsers.filter((user) => user.id !== userid),
+      globalUsers: this.state.globalUsers.filter((user) => user.id !== userid),
     });
   };
 
   handleDeleteAnimal = (animalid) => {
     this.setState({
-      localAnimals: this.state.localAnimals.filter(
+      globalAnimals: this.state.globalAnimals.filter(
         (animal) => animal.id !== animalid
       ),
     });
@@ -213,7 +212,7 @@ class App extends Component {
 
   handleDeleteEvent = (eventid) => {
     this.setState({
-      localEvents: this.state.localEvents.filter(
+      globalEvents: this.state.globalEvents.filter(
         (event) => event.id !== eventid
       ),
     });
@@ -221,7 +220,7 @@ class App extends Component {
 
   handleDeleteTopic = (topicid) => {
     this.setState({
-      localTopics: this.state.localTopics.filter(
+      globalTopics: this.state.globalTopics.filter(
         (topic) => topic.id !== topicid
       ),
     });
@@ -229,13 +228,13 @@ class App extends Component {
 
   handleDeletePost = (postid) => {
     this.setState({
-      localPosts: this.state.localPosts.filter((post) => post.id !== postid),
+      globalPosts: this.state.globalPosts.filter((post) => post.id !== postid),
     });
   };
 
   handleDeleteOrganization = (orgid) => {
     this.setState({
-      localOrganizations: this.state.localOrganizations.filter(
+      globalOrganizations: this.state.globalOrganizations.filter(
         (org) => org.id !== orgid
       ),
     });
@@ -243,15 +242,15 @@ class App extends Component {
 
   handleDeletePicture = (pictureid) => {
     this.setState({
-      localPictures: this.state.localPictures.filter(
+      globalPictures: this.state.globalPictures.filter(
         (picture) => picture.id !== pictureid
       ),
     });
   };
 
-  handleSetLocalArea = (val) => {
+  handleSetglobalArea = (val) => {
     this.setState({
-      localArea: val,
+      globalArea: val,
     });
   };
 
@@ -303,7 +302,7 @@ class App extends Component {
       addTopic: this.handleAddTopic,
       addAnimal: this.handleAddAnimal,
       addPost: this.handleAddPost,
-      addOrganizaton: this.handleAddOrganization,
+      addOrganization: this.handleAddOrganization,
       addPicture: this.handleAddPicture,
       deleteEvent: this.handleDeleteEvent,
       deleteTopic: this.handleDeleteTopic,
@@ -320,6 +319,7 @@ class App extends Component {
         <div className="App">
           <Title />
           <TopNavbar />
+          {this.state.servErr.length > 0 ? this.state.servErr : null}
           <main>{this.renderRoutes()}</main>
         </div>
       </APIcontext.Provider>

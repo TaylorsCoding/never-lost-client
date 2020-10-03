@@ -25,6 +25,7 @@ import config from "../../config";
 
 export default class EventPage extends Component {
   state = {
+    servErr: "",
     postVer: true,
   };
   static defaultProps = {
@@ -66,7 +67,7 @@ export default class EventPage extends Component {
         window.location.reload(false);
       })
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: error });
       });
   }
   /**
@@ -107,6 +108,7 @@ export default class EventPage extends Component {
     return (
       <ErrorBoundary>
         <div className="event-content">
+          {this.state.servErr.length > 0 ? this.state.servErr : null}
           <div>
             <h1>Event: {event ? event.title : null}</h1>
             <p>{org ? `Has to do with the ${org.name} organization.` : null}</p>
@@ -147,13 +149,13 @@ export default class EventPage extends Component {
               }
             >
               <div>
-                <label for="content">New Post</label>
+                <label htmlFor="event-page-post-content">New Post</label>
               </div>
               <div>
                 <label>
                   {this.state.postVer ? null : "You must enter some text."}
                 </label>
-                <textarea name="content" />
+                <textarea name="content" id="event-page-post-content" />
               </div>
               <div>
                 <input type="submit" />

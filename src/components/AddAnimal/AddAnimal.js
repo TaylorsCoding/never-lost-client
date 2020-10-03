@@ -118,7 +118,6 @@ export default class AddAnimal extends Component {
         this.props.history.push(`/animals`);
       })
       .catch((error) => {
-        console.error(error);
         this.setState({ servErr: error });
       });
   };

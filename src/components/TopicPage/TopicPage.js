@@ -8,6 +8,7 @@ import config from "../../config";
 
 export default class TopicPage extends Component {
   state = {
+    servErr: "",
     postVer: true,
   };
   static defaultProps = {
@@ -51,7 +52,7 @@ export default class TopicPage extends Component {
         this.props.history.push(`/topic/${topic_id}`);
       })
       .catch((error) => {
-        console.error({ error });
+        this.setState({ servErr: error });
       });
   }
 
@@ -73,6 +74,7 @@ export default class TopicPage extends Component {
       <div className="chat-content">
         <ErrorBoundary>
           <div>
+            {this.state.servErr.length > 0 ? this.state.servErr : null}
             <h1>Topic: {topic ? topic.title : null}</h1>
             <p>
               {topic
