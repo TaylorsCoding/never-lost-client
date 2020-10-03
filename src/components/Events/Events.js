@@ -77,7 +77,6 @@ export default class Events extends Component {
                           : null
                       }
                     />
-                    <p>{evnt}</p>
                   </>
                 ) : null
               )}
